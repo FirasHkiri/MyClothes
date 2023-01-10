@@ -50,7 +50,7 @@
                 <div class="card card-primary mx-auto mB-30" style="width: 400px;border-radius: 15px;">
                     <div class="row card-body">
                         <div class="col-4 mR-30">
-                            <img src="{{ asset('assets/img/' . $user->image) }}" alt="User avatar" height="130"
+                            <img src="{{ asset('assets/img/' . $partner->image) }}" alt="User avatar" height="130"
                                 width="130" style="border-radius: 15px">
                             <div class="image-upload">
                                 <label id="editbutton" class="btn edit" data-toggle="tooltip" data-placement="bottom"
@@ -62,8 +62,8 @@
                         </div>
                         <div class="justify-content-center col-7">
                             <div class="card-body">
-                                <h3 style="color: black"> {{ $user->name }} </h3>
-                                <h6>Role : {{ $user->role }} </h6>
+                                <h3 style="color: black"> {{ $partner->name }} </h3>
+                                <h6>Role : {{ $partner->role }} </h6>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="{{ route('changeProfileImage', $user->id) }}" method="POST"
+                            <form action="{{ route('changeProfileImage', $partner->id) }}" method="POST"
                                 enctype="multipart/form-data">
 
                                 @csrf
@@ -101,7 +101,7 @@
             <!-- End profile image -->
 
             <!-- profile body -->
-                <form action="{{ route('updateProfile', $user->id) }}" method="POST">
+                <form action="{{ route('updateProfile', $partner->id) }}" method="POST">
 
                     @csrf
                     @method('PUT')
@@ -111,7 +111,7 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" name="name" style="width: 700px" class="form-control"
-                                    value="{{ $user->name }}" placeholder="Name">
+                                    value="{{ $partner->name }}" placeholder="Name">
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                                 @endif
@@ -120,7 +120,7 @@
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="text" name="email" style="width: 700px" class="form-control"
-                                    value="{{ $user->email }}" placeholder="Email">
+                                    value="{{ $partner->email }}" placeholder="Email">
                                 @if ($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
@@ -136,7 +136,7 @@
             <!-- End profile body -->
 
             <!-- profile password -->
-                <form action="{{ route('changePassword', $user->id) }}" method="POST">
+                <form action="{{ route('changePassword', $partner->id) }}" method="POST">
 
                     @csrf
                     @method('PUT')
@@ -203,7 +203,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="{{ route('deleteAccount', $user->id) }}" method="POST">
+                            <form action="{{ route('deleteAccount', $partner->id) }}" method="POST">
 
                                 @csrf
                                 @method('DELETE')

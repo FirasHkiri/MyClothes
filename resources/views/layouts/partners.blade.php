@@ -32,18 +32,16 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($partners as $partner)
                             <tr height="100px">
                                 
-                                <td><img src="{{ asset('assets/img/'.$user->image) }}" width="100px" height="100px"></td>
-                                <td style="text-align:center" class="pt-5"><h6>{{ $user->name }}</h6></td>
-                                <td><div class="pt-4"> <a class="btn btn-primary" href="{{ url('/product/hisall',$user->id) }}"><i class="fa fa-eye"></i> View Products</a></div></td>
+                                <td><img src="{{ asset('assets/img/'.$partner->image) }}" width="100px" height="100px"></td>
+                                <td style="text-align:center" class="pt-5"><h6>{{ $partner->name }}</h6></td>
+                                <td><div class="pt-4"> <a class="btn btn-primary" href="{{ url('/product/hisall',$partner->id) }}"><i class="fa fa-eye"></i> View Products</a></div></td>
                                 <td>
                                     <form class="pt-4" action="" method="POST" >
       
                                         <a class="btn btn-info" href=""><i class="fa fa-eye"></i> Details</a>
-                               
-                                        <a class="btn btn-secondary" href=""><i class="fa fa-pencil"></i> Edit</a>
                               
                                             @csrf
                                             @method('DELETE')

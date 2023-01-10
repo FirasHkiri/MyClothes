@@ -11,17 +11,16 @@ class Product extends Model
 
     protected $table = 'products';
     protected $fillable = [
-        'user_id',
+        'partner_id',
         'name', 
         'detail',
-        'category_id',
-        'size',  
+        'category_id',  
         'image'
     ];
 
-    public function user()
+    public function partner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Partner::class);
     }
     
     public function category ()

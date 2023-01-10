@@ -29,12 +29,12 @@
         </div>
         <ul class="sidebar-menu scrollable pos-r">
             
-            <li class="nav-item mT-30"><a class="sidebar-link" href="/dashboard"><span class="icon-holder">
+            <li class="nav-item mT-30"><a class="sidebar-link" href="{{ route('dashboard') }}"><span class="icon-holder">
                 <i class="c-blue-500 ti-home"></i> </span><span class="title">Dashboard</span></a>
             </li>  
-            {{-- User --}}
+            {{-- Partner --}}
             @if(Auth::user()->role == 'Partner') 
-            <li class="nav-item"><a class="sidebar-link" href="/product/myall">
+            <li class="nav-item"><a class="sidebar-link" href="{{ route('myProducts') }}">
                 <span class="icon-holder"><i class="c-teal-500 ti-view-list-alt"></i></span>
                 <span class="title">Products</span></a>
             </li>  
@@ -42,16 +42,16 @@
 
             {{-- Admin or Super Admin --}}
             @if(Auth::user()->role == ('Admin')||Auth::user()->role == ('Super Admin')) 
-            <li class="nav-item"><a class="sidebar-link" href="/product/all">
+            <li class="nav-item"><a class="sidebar-link" href="{{ route('products') }}">
                 <span class="icon-holder"><i class="c-teal-500 ti-view-list-alt"></i></span>
                 <span class="title">Products</span></a>
             </li>  
             
-            <li class="nav-item"><a class="sidebar-link" href="/user/all">
+            <li class="nav-item"><a class="sidebar-link" href="{{ route('partners') }}">
                 <span class="icon-holder"><i class="c-orange-500 ti-layout-list-thumb"></i></span>
                 <span class="title">Partners</span></a>
             </li>  
-            <li class="nav-item"><a class="sidebar-link" href="/user/all">
+            <li class="nav-item"><a class="sidebar-link" href="{{ route('users') }}">
                 <span class="icon-holder"><i class="c-red-500 ti-user"></i> </span>
                 <span class="title">Users Managements</span></a>
             </li>  

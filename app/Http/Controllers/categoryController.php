@@ -6,18 +6,27 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class categoryController extends Controller
+class CategoryController extends Controller
 {
-    public function store(Request $request)
+    public function storeCategory(Request $request)
     {
         $request->validate([
             'name'        => 'required',
+            'image'       => 'required'
         ]);
    
         $data = $request->all();
+
+        if ($image = $request->file('image')) {
+            $destinationPath = 'assets/img';
+            $profileImage = $image->getClientOriginalName();
+            $image->move($destinationPath, $profileImage);
+            $data['image'] = "$profileImage";
+        }
  
         Category::create([
              'name'        =>  $data['name'],
+             'image'       =>  $data['image']
                         ]);
 
 
@@ -25,25 +34,13 @@ class categoryController extends Controller
      
     }
 
-    public function showShirts(Request $request)
-    {
-        $products = Product::all()->where('category_id', 1);
+    public function showByCategory($id)
+    {   
+
+        $products = Product::all()->where('category_id', $id);
         $categories = Category::all();
 
         return view('layouts.products', compact('products','categories'));
     }
 
-    public function showShoes(Request $request)
-    {
-        $products = Product::all()->where('category_id', 2);
-        $categories = Category::all();
-        return view('layouts.products', compact('products','categories'));
-    }
-
-    public function showPants(Request $request)
-    {
-        $products = Product::all()->where('category_id', 3);
-        $categories = Category::all();
-        return view('layouts.products', compact('products','categories'));
-    }
 }

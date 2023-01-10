@@ -80,9 +80,18 @@
                     <span class="text-danger">{{ $errors->first('password') }}</span>
                 @endif
             </div>
-                      <div class="form-group mb-1">
-              <label>Logo :</label> <br>
+            <div class="form-group">
+                <input type="password" name="confirm_password" class="form-control imgrounded" placeholder="Confirm Password">
+                @if ($errors->has('confirm_password'))
+                    <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
+                @endif
+            </div>
+              <div class="form-group mb-1">
+              <label>Logo</label> <br>
               <input type="file" name="image" class="form-control" placeholder="image">
+              @if ($errors->has('image'))
+              <span class="text-danger">{{ $errors->first('image') }}</span>
+              @endif
             </div>
             <br>
             <div class="txtstyle">

@@ -7,9 +7,9 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class productController extends Controller
+class ProductController extends Controller
 {
-   public function index()
+   public function products()
    {
     $products = Product::all();
     $categories = Category::all();
@@ -18,7 +18,7 @@ class productController extends Controller
 
    public function getMyProducts()
    {
-    $products = Product::all()->where('user_id',auth()->user()->id);
+    $products = Product::all()->where('partner_id',auth()->user()->id);
     $categories = Category::all();
     return view('layouts.products', compact('products','categories'));
    }
@@ -26,18 +26,19 @@ class productController extends Controller
    public function getHisProducts($id)
    {
 
-       $products = Product::where('user_id', $id)->get();
+       $products = Product::where('partner_id', $id)->get();
+       $categories = Category::all();
 
-       return view('layouts.products',compact('products'));
+       return view('layouts.products',compact('products','categories'));
    }
 
-   public function store(Request $request)
+   public function storeProduct(Request $request)
    {
-    //    $request->validate([
-    //        'name'        => 'required',
-    //        'detail'      => 'required',
-    //        'image'       => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //    ]);
+       $request->validate([
+           'name'        => 'required',
+           'detail'      => 'required',
+           'image'       => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+       ]);
   
        $data = $request->all();
   
@@ -50,9 +51,8 @@ class productController extends Controller
 
         Product::create([
             'name'        =>  $data['name'],
-            'user_id'  =>  Auth::user()->id,
+            'partner_id'  =>  Auth::user()->id,
             'detail'      =>  $data['detail'],
-            'size'      =>  $data['size'],
             'category_id' =>  $data['category_id'],
             'image'       =>  $data['image']
 
@@ -66,20 +66,19 @@ class productController extends Controller
         ->with('message','Product added successfully');
     }
    }
-
-
-   public function edit($id)
+   
+   public function editProduct($id)
    {
-       $product = Product::find($id);
-       return response()->json([
-           'status' => 200,
-           'product' => $product
-       ]);
+            $product = Product::find($id);
+            return response()->json([
+                'status' => 200,
+                'product' => $product
+            ]);
 
    }
 
-    public function update(Request $request)
-    {
+   public function updateProduct(Request $request)
+   {
 
         $product_id = $request->input('product_id');
         $product = Product::find($product_id);
@@ -87,7 +86,6 @@ class productController extends Controller
         $request->validate([
             'name' => 'required',
             'detail' => 'required',
-            'size' => 'required',
         ]);
 
         $input = $request->all();
@@ -103,17 +101,17 @@ class productController extends Controller
 
         $product->update($input);
 
-        // if (auth()->user()->role == 'User') {
+        // if (auth()->user()->role == 'Partner') {
         //     return redirect()->route('myProducts')
         //         ->with('success', 'Product Updated successfully');
         // } else {
         //     return redirect()->route('products')
         //         ->with('success', 'Product Updated successfully');
         // }
-        return redirect()->back()->with('message','Product updated successfully');
-    }
+        return redirect()->back()->with('message','User updated successfully');
+   }
 
-   public function delete(Product $product)
+   public function deleteProduct(Product $product)
    {
        $product->delete();
      
@@ -126,5 +124,6 @@ class productController extends Controller
         ->with('message','Product Deleted successfully');
     }
    }
+
 }
 

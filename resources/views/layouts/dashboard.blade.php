@@ -7,31 +7,31 @@
 
 
 @section('css')
-  <style>
-    .CenterPage {
-      width: auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%)}
-    .txtstyle {
-      font-size: 16px;
-      font-family: 'georgia';
-      font-weight: 510; 
-      text-align: center;
-      color: grey}
-    .screencenter{
-      text-align: center}
-    .imgrounded {
-      border-radius: 20%}
-    .btn-primary {
-      background-color: #320662 !important;
-      padding: 11px;
-      width: 170px;
-      border-radius: 13px;
-    }
+<style>
+  .CenterPage {
+    width: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)}
+  .txtstyle {
+    font-size: 16px;
+    font-family: 'georgia';
+    font-weight: 510; 
+    text-align: center;
+    color: grey}
+  .screencenter{
+    text-align: center}
+  .imgrounded {
+    border-radius: 20%}
+  .btn-primary {
+    background-color: #320662 !important;
+    padding: 11px;
+    width: 170px;
+    border-radius: 13px;
+  }
 
-  </style>
+</style>
 @endsection
 
 

@@ -46,18 +46,18 @@
     <script>
         $(document).ready(function() {
             $(document).on("click", ".editbutton", function() {
-                var user_id = $(this).val();
+                var partner_id = $(this).val();
                 
                  $('#useredit').modal('show');
 
                 $.ajax({
                     type: "GET",
-                    url: "/user/editUser/" + user_id,
+                    url: "/user/editUser/" + partner_id,
                     success: function(response) {
-                        $('#id').val(user_id);
-                        $('#name').val(response.user.name);
-                        $('#email').val(response.user.email);
-                        $('#role').val(response.user.role);
+                        $('#id').val(partner_id);
+                        $('#name').val(response.partner.name);
+                        $('#email').val(response.partner.email);
+                        $('#role').val(response.partner.role);
                     }
                 })
             });
@@ -90,28 +90,28 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($partners as $partner)
                                 <tr>
                                     <td class="text-center">
-                                        <h6>{{ $user->id }}</h6>
+                                        <h6>{{ $partner->id }}</h6>
                                     </td>
 
                                     <td class="text-center">
-                                        <h6>{{ $user->name }}</h6>
+                                        <h6>{{ $partner->name }}</h6>
                                     </td>
                                     <td class="text-center">
-                                        <h6>{{ $user->email }}</h6>
+                                        <h6>{{ $partner->email }}</h6>
                                     </td>
                                     <td class="text-center">
-                                        <h6>{{$user->created_at->diffForHumans()}}</h6>
+                                        <h6>{{$partner->created_at->diffForHumans()}}</h6>
                                     </td>
                                     <td class="text-center">
-                                        <h6>{{ $user->products_count }}</h6>
+                                        <h6>{{ $partner->products_count }}</h6>
                                     </td>
                                     <td>
-                                        @if ($user->role == 'Super Admin')
+                                        @if ($partner->role == 'Super Admin')
                                             <div class="Sadmin text-center">Super Admin</div>
-                                        @elseif ($user->role == 'Admin')
+                                        @elseif ($partner->role == 'Admin')
                                             <div class="admin text-center">Admin</div>
                                         @else
                                             <div class="partner text-center">Partner</div>
@@ -123,11 +123,12 @@
                                             <div class="row">
                                                 <div class="col-sm-12 text-center">
 
-                                                    <button type="button" class="btn btn-secondary editbutton" value="{{ $user->id }}"><i
+                                                    <button type="button" class="btn btn-secondary editbutton"
+                                                        value="{{ $partner->id }}"><i
                                                             class="fa fa-pencil"></i>Edit</button>
 
                                                     <form style=" display: inline-block;vertical-align: top;"
-                                                        action="{{ route('deleteUser', $user->id) }}" method="POST">
+                                                        action="{{ route('deleteUser', $partner->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
 
@@ -154,7 +155,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header mx-auto">
-                        <h5 class="modal-title ">Add User</h5>
+                        <h5 class="modal-title ">Edit user information</h5>
                         <button type="button" class="btn-close position-absolute end-0 mR-20 mT-2" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
@@ -189,6 +190,14 @@
                                             <span class="text-danger">{{ $errors->first('password') }}</span>
                                         @endif
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Confirm your Password</label>
+                                    <input type="password" name="confirm_password" class="form-control" placeholder="Confirm password..">
+                                        @if ($errors->has('confirm_password'))
+                                            <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
+                                        @endif
+                                </div>
         
                                 <div class="form-group">
                                     <label>Logo</label>
@@ -204,7 +213,8 @@
                                         <option value="0" selected hidden>Choose user role</option>
                                         <option value="Super Admin">Super Admin</option>
                                         <option value="Admin">Admin</option>
-                                        <option value="Partner">Partner</option>
+                                        <option value="Partner">Partner
+                                        </option>
                                     </select>
                                         @if ($errors->has('role'))
                                             <span class="text-danger">Please select a role for this user</span>
@@ -235,7 +245,7 @@
                         @csrf
                         @method('PUT')
 
-                        <input type="hidden" name="user_id" id="id">
+                        <input type="hidden" name="partner_id" id="id">
 
                         <div class="modal-body">
                             <div class="row card-body">
